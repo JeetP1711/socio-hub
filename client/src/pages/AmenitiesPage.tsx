@@ -32,7 +32,7 @@ export default function AmenitiesPage() {
             <CardHeader className="p-4 pb-2">
               <div className="flex justify-between items-start">
                 <CardTitle className="text-base font-bold">{a.name}</CardTitle>
-                <Badge variant={a.isBookingAllowed ? 'success' : 'outline'} className="text-[10px]">
+                <Badge variant="outline" className="text-[10px]">
                   {a.isBookingAllowed ? 'Available' : 'Maintenance'}
                 </Badge>
               </div>
@@ -41,8 +41,8 @@ export default function AmenitiesPage() {
               <p className="text-xs text-muted-foreground">{a.description}</p>
 
               <div className="text-xs space-y-1">
-                <p>Capacity: <span className="font-semibold">{a.capacity} people</span></p>
-                <p>Fee: <span className="font-semibold text-emerald-500">{a.bookingFee > 0 ? `₹${a.bookingFee}/slot` : 'Free for Residents'}</span></p>
+                <p>Capacity: <span className="font-semibold">{a.capacity || 50} people</span></p>
+                <p>Fee: <span className="font-semibold text-emerald-500">{(a.bookingFee || a.pricePerHour || 0) > 0 ? `₹${a.bookingFee || a.pricePerHour}/slot` : 'Free for Residents'}</span></p>
                 <p>Hours: <span className="font-semibold">{a.openingTime} - {a.closingTime}</span></p>
               </div>
 

@@ -179,36 +179,40 @@ export interface Visitor {
   name: string
   phone: string
   purpose: string
-  flatId: string
+  flatId?: string
   flatNumber: string
-  towerName: string
-  residentName: string
+  towerName?: string
+  residentName?: string
+  societyId?: string
   vehicleNumber?: string
-  expectedDate: string
-  expectedTime: string
+  expectedDate?: string
+  expectedTime?: string
   entryTime?: string
   exitTime?: string
-  status: 'expected' | 'checked_in' | 'checked_out' | 'cancelled'
-  type: 'guest' | 'delivery' | 'cab' | 'service'
+  status: 'expected' | 'checked_in' | 'checked_out' | 'cancelled' | 'approved'
+  type?: 'guest' | 'delivery' | 'cab' | 'service'
   passCode: string
   photo?: string
   approvedBy?: string
-  createdAt: string
+  createdAt?: string
 }
 
 export interface Notice {
   id: string
+  societyId?: string
   title: string
-  description: string
-  category: 'general' | 'maintenance' | 'event' | 'emergency' | 'meeting' | 'other'
-  priority: 'low' | 'medium' | 'high' | 'urgent'
-  attachments: string[]
-  publishDate: string
+  content?: string
+  description?: string
+  category: 'general' | 'maintenance' | 'event' | 'emergency' | 'meeting' | 'urgent' | 'billing' | 'rules' | 'other'
+  priority: 'low' | 'medium' | 'high' | 'urgent' | 'normal'
+  attachments?: string[]
+  publishDate?: string
   expiryDate?: string
   isPinned: boolean
-  createdBy: string
+  createdBy?: string
   createdByName: string
   createdAt: string
+  readByCount?: number
 }
 
 export interface Notification {
@@ -219,43 +223,52 @@ export interface Notification {
   type: 'maintenance' | 'payment' | 'complaint' | 'visitor' | 'notice' | 'poll' | 'amenity' | 'emergency' | 'community'
   isRead: boolean
   actionUrl?: string
-  createdAt: string
+  timestamp?: string
+  createdAt?: string
 }
 
 export interface Poll {
   id: string
-  title: string
-  description: string
+  title?: string
+  question?: string
+  description?: string
   options: PollOption[]
-  isAnonymous: boolean
-  deadline: string
+  isAnonymous?: boolean
+  deadline?: string
+  endDate?: string
   totalVotes: number
-  totalEligible: number
-  status: 'active' | 'closed' | 'draft'
-  createdBy: string
-  createdByName: string
-  createdAt: string
+  totalEligible?: number
+  userVotedIndex?: number
+  status?: 'active' | 'closed' | 'draft'
+  createdBy?: string
+  createdByName?: string
+  createdAt?: string
   userVote?: string
 }
 
 export interface PollOption {
-  id: string
+  id?: string
   text: string
   votes: number
-  percentage: number
+  percentage?: number
 }
 
 export interface Amenity {
   id: string
   name: string
   description: string
-  type: 'clubhouse' | 'gym' | 'swimming_pool' | 'party_hall' | 'sports_court' | 'meeting_room'
+  type?: 'clubhouse' | 'gym' | 'swimming_pool' | 'party_hall' | 'sports_court' | 'meeting_room'
   image?: string
-  pricePerHour: number
-  maxDurationHours: number
-  isAvailable: boolean
-  rules: string[]
-  timeSlots: string[]
+  pricePerHour?: number
+  maxDurationHours?: number
+  isAvailable?: boolean
+  isBookingAllowed?: boolean
+  capacity?: number
+  bookingFee?: number
+  openingTime?: string
+  closingTime?: string
+  rules?: string | string[]
+  timeSlots?: string[]
 }
 
 export interface AmenityBooking {
@@ -277,14 +290,16 @@ export interface Expense {
   id: string
   category: 'electricity' | 'water' | 'security' | 'cleaning' | 'repairs' | 'staff_salary' | 'lift_maintenance' | 'gardening' | 'other'
   title: string
-  description: string
+  description?: string
   amount: number
   vendorId?: string
   vendorName?: string
   date: string
   invoiceUrl?: string
   approvedBy?: string
-  createdAt: string
+  approvedByName?: string
+  status?: 'approved' | 'pending' | 'rejected'
+  createdAt?: string
 }
 
 export interface Vendor {

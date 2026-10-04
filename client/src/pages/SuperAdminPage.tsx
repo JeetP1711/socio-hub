@@ -71,7 +71,9 @@ export default function SuperAdminPage() {
                   <td className="p-4">{s.totalFlats} flats ({s.totalTowers} towers)</td>
                   <td className="p-4 uppercase text-xs font-semibold text-purple-500">{s.subscriptionPlan}</td>
                   <td className="p-4">
-                    <Badge variant="success" className="capitalize text-[10px]">{s.subscriptionStatus}</Badge>
+                    <Badge variant="outline" className="capitalize text-[10px] bg-emerald-500/10 text-emerald-600 border-emerald-500/30">
+                      {s.isActive ? 'active' : 'inactive'}
+                    </Badge>
                   </td>
                   <td className="p-4 text-right">
                     <Button size="sm" variant="outline" onClick={() => toast.success(`Accessing tenant ${s.name}...`)}>

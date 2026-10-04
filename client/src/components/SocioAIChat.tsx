@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAIChatStore } from '@/stores'
 import { demoDashboardStats, demoMaintenanceBills, demoComplaints, demoVisitors, demoExpenses } from '@/data/demo'
-import { formatCurrency } from '@/lib/utils'
+import { formatCurrency, cn } from '@/lib/utils'
 
 export default function SocioAIChat() {
   const { isOpen, close, toggle, messages, addMessage, updateLastAssistant } = useAIChatStore()

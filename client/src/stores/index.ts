@@ -81,6 +81,7 @@ interface NotificationState {
   setNotifications: (notifications: Notification[]) => void
   markAsRead: (id: string) => void
   markAllAsRead: () => void
+  clearAll: () => void
   addNotification: (notification: Notification) => void
 }
 
@@ -107,6 +108,7 @@ export const useNotificationStore = create<NotificationState>((set) => ({
       notifications: state.notifications.map((n) => ({ ...n, isRead: true })),
       unreadCount: 0,
     })),
+  clearAll: () => set({ notifications: [], unreadCount: 0 }),
   addNotification: (notification) =>
     set((state) => ({
       notifications: [notification, ...state.notifications],
@@ -165,7 +167,13 @@ export const useAIChatStore = create<AIChatState>((set) => ({
   updateLastAssistant: (content) =>
     set((s) => {
       const msgs = [...s.messages]
-      const lastIdx = msgs.findLastIndex((m) => m.role === 'assistant')
+      let lastIdx = -1
+      for (let i = msgs.length - 1; i >= 0; i--) {
+        if (msgs[i].role === 'assistant') {
+          lastIdx = i
+          break
+        }
+      }
       if (lastIdx >= 0) {
         msgs[lastIdx] = { ...msgs[lastIdx], content, isStreaming: false }
       }
